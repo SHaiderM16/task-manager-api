@@ -1,5 +1,11 @@
 # Backend API Starter
 
+![Python](https://img.shields.io/badge/Python-3.14-blue?style=for-the-badge&logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.139-green?style=for-the-badge&logo=fastapi)
+![uv](https://img.shields.io/badge/uv-0.11-purple?style=for-the-badge&logo=uv)
+![pytest](https://img.shields.io/badge/pytest-9.1-orange?style=for-the-badge&logo=pytest)
+![Ruff](https://img.shields.io/badge/Ruff-0.15-red?style=for-the-badge&logo=ruff)
+
 A minimal FastAPI backend with health checks and service status endpoints. Built for the FlyRank BE-01 assignment – demonstrates modern Python project structure, testing, and CI-ready practices.
 
 ## Tech Stack
