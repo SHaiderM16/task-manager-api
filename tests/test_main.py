@@ -31,7 +31,7 @@ def test_api_v1_status_default(monkeypatch):
     response = client.get("/api/v1/status")
     assert response.status_code == 200
     assert response.json() == {
-        "service": "backend-api-starter",
+        "service": "task-manager-api",
         "version": "1.0.0",
         "environment": "development",
     }
@@ -43,7 +43,7 @@ def test_api_v1_status_production(monkeypatch):
     response = client.get("/api/v1/status")
     assert response.status_code == 200
     assert response.json() == {
-        "service": "backend-api-starter",
+        "service": "task-manager-api",
         "version": "1.0.0",
         "environment": "production",
     }

@@ -230,7 +230,7 @@ wheels = [
 ]
 
 [[package]]
-name = "backend-api-starter"
+name = "task-manager-api"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

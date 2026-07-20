@@ -1,4 +1,4 @@
-# Backend API Starter
+# Task Manager API
 
 ![Python](https://img.shields.io/badge/Python-3.14-blue?style=for-the-badge&logo=python)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.139-green?style=for-the-badge&logo=fastapi)
@@ -21,8 +21,8 @@ A minimal FastAPI backend with health checks, service status, and a **full CRUD 
 
 ```bash
 # Clone the repository
-git clone https://github.com/SHaiderM16/backend-api-starter.git
-cd backend-api-starter
+git clone https://github.com/SHaiderM16/task-manager-api.git
+cd task-manager-api
 
 # Install dependencies
 uv sync

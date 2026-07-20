@@ -55,7 +55,7 @@ async def health():
 async def status():
     env = os.getenv("ENVIRONMENT", "development")
 
-    return {"service": "backend-api-starter", "version": "1.0.0", "environment": env}
+    return {"service": "task-manager-api", "version": "1.0.0", "environment": env}
 
 
 @app.get("/tasks", summary="List all tasks", description="Returns full list of tasks")

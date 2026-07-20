@@ -1,7 +1,7 @@
 [project]
-name = "backend-api-starter"
+name = "task-manager-api"
 version = "0.1.0"
-description = "Minimal FastAPI backend with health checks and service status endpoints"
+description = "Minimal FastAPI backend with health checks, service status, and a full CRUD API for managing tasks."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
