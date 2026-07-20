@@ -58,3 +58,17 @@ async def get_tasks():
 async def get_task(task_id: int):
     task = get_task_helper(task_id)
     return task
+
+
+@app.post("/tasks")
+async def create_task(task: TaskCreate):
+    global next_id
+
+    if not task.title or task.title.strip() == "":
+        raise HTTPException(400, detail={"error": "Title cannot be empty"})
+
+    new_task = {"id": next_id, "title": task.title, "done": False}
+    tasks.append(new_task)
+    next_id += 1
+
+    return new_task, 201
