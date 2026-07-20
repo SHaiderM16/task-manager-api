@@ -1,8 +1,33 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from datetime import datetime, timezone
 import os
+from pydantic import BaseModel
 
 app = FastAPI()
+
+
+class TaskCreate(BaseModel):
+    title: str
+
+
+class TaskUpdate(BaseModel):
+    title: str | None = None
+    done: bool | None = None
+
+
+tasks = [
+    {"id": 1, "title": "Learn FastAPI", "done": True},
+    {"id": 2, "title": "Build CRUD API", "done": False},
+    {"id": 3, "title": "Submit assignment", "done": False},
+]
+next_id = 4  # next task ID counter
+
+
+def get_task_helper(task_id: int):
+    for task in tasks:
+        if task["id"] == task_id:
+            return task
+    raise HTTPException(status_code=404, detail={"error": f"Task {task_id} not found"})
 
 
 @app.get("/")
@@ -22,3 +47,14 @@ async def status():
     env = os.getenv("ENVIRONMENT", "development")
 
     return {"service": "backend-api-starter", "version": "1.0.0", "environment": env}
+
+
+@app.get("/tasks")
+async def get_tasks():
+    return tasks
+
+
+@app.get("/tasks/{task_id}")
+async def get_task(task_id: int):
+    task = get_task_helper(task_id)
+    return task
