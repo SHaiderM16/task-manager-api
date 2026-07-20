@@ -31,37 +31,51 @@ def get_task_helper(task_id: int):
     raise HTTPException(status_code=404, detail={"error": f"Task {task_id} not found"})
 
 
-@app.get("/")
+@app.get("/", summary="Root endpoint", description="Returns application's purpose")
 async def root():
     return {"message": "FlyRank Backend AI Engineering Assignment 1"}
 
 
-@app.get("/health")
+@app.get(
+    "/health",
+    summary="Backend server's health check",
+    description="Returns status and current timestamp",
+)
 async def health():
     timestamp = datetime.now(timezone.utc).isoformat()
 
     return {"status": "ok", "timestamp": timestamp}
 
 
-@app.get("/api/v1/status")
+@app.get(
+    "/api/v1/status",
+    summary="App's name, version, environment",
+    description="Returns application's name, version, and current development environment",
+)
 async def status():
     env = os.getenv("ENVIRONMENT", "development")
 
     return {"service": "backend-api-starter", "version": "1.0.0", "environment": env}
 
 
-@app.get("/tasks")
+@app.get("/tasks", summary="List all tasks", description="Returns full list of tasks")
 async def get_tasks():
     return tasks
 
 
-@app.get("/tasks/{task_id}")
+@app.get(
+    "/tasks/{task_id}",
+    summary="Get single task",
+    description="Returns one task by its ID",
+)
 async def get_task(task_id: int):
     task = get_task_helper(task_id)
     return task
 
 
-@app.post("/tasks")
+@app.post(
+    "/tasks", summary="Create new task", description="Adds new task to tasks list"
+)
 async def create_task(task: TaskCreate):
     global next_id
 
@@ -75,7 +89,11 @@ async def create_task(task: TaskCreate):
     return JSONResponse(content=new_task, status_code=201)
 
 
-@app.put("/tasks/{task_id}")
+@app.put(
+    "/tasks/{task_id}",
+    summary="Update a task",
+    description="Updates task's title and/or done status",
+)
 async def update_task(task_id: int, task: TaskUpdate):
     to_update_task = get_task_helper(task_id)
 
@@ -92,10 +110,14 @@ async def update_task(task_id: int, task: TaskUpdate):
     if task.done is not None:
         to_update_task["done"] = task.done
 
-    return to_update_task, 200
+    return JSONResponse(content=to_update_task, status_code=200)
 
 
-@app.delete("/tasks/{task_id}")
+@app.delete(
+    "/tasks/{task_id}",
+    summary="Delete task",
+    description="Removes task from the tasks list",
+)
 async def delete_task(task_id: int):
     to_delete_task = get_task_helper(task_id)
     tasks.remove(to_delete_task)
