@@ -1,4 +1,5 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
+from fastapi.responses import JSONResponse
 from datetime import datetime, timezone
 import os
 from pydantic import BaseModel
@@ -71,4 +72,31 @@ async def create_task(task: TaskCreate):
     tasks.append(new_task)
     next_id += 1
 
-    return new_task, 201
+    return JSONResponse(content=new_task, status_code=201)
+
+
+@app.put("/tasks/{task_id}")
+async def update_task(task_id: int, task: TaskUpdate):
+    to_update_task = get_task_helper(task_id)
+
+    if task.title is None and task.done is None:
+        raise HTTPException(
+            400, detail={"error": "At least one of title or done must be provided"}
+        )
+
+    if task.title is not None:
+        if task.title.strip() == "":
+            raise HTTPException(400, detail={"error": "Title cannot be empty"})
+        to_update_task["title"] = task.title
+
+    if task.done is not None:
+        to_update_task["done"] = task.done
+
+    return to_update_task, 200
+
+
+@app.delete("/tasks/{task_id}")
+async def delete_task(task_id: int):
+    to_delete_task = get_task_helper(task_id)
+    tasks.remove(to_delete_task)
+    return Response(status_code=204)
