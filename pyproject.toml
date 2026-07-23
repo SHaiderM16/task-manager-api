@@ -1,7 +1,7 @@
 [project]
 name = "task-manager-api"
 version = "0.1.0"
-description = "Minimal FastAPI backend with health checks, service status, and a full CRUD API for managing tasks."
+description = "A FastAPI-based CRUD API with persistent SQLite storage, demonstrating layered architecture."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
